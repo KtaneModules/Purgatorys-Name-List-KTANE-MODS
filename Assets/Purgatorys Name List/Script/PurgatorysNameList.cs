@@ -105,7 +105,7 @@ public class PurgatorysNameList : MonoBehaviour
 
     private void Strike()
     {
-        
+        GetComponent<KMBombModule>().HandleStrike();
         Logging($"Strike! Resetting module...");
         SetUpMod();
     }

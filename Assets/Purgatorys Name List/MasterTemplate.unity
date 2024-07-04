@@ -152,69 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 224409480325390342, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224648743498638734, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224548732583439988, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224335258613871530, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224741127108638342, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224342155629498118, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224732813163776018, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224638065926830946, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 21.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4554909312485372, guid: 75f24afa0977b094d8f51c5e2e4db5b3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.0195
-      objectReference: {fileID: 0}
-    - target: {fileID: 4262487717981166, guid: 75f24afa0977b094d8f51c5e2e4db5b3, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.019499999
-      objectReference: {fileID: 0}
-    - target: {fileID: 108367121044402484, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: m_Range
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 114916341710067522, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: ModuleType
-      value: PurgatorysNameList
-      objectReference: {fileID: 0}
-    - target: {fileID: 114916341710067522, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
-        type: 2}
-      propertyPath: ModuleDisplayName
-      value: Purgatory's Name List
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75f24afa0977b094d8f51c5e2e4db5b3, type: 2}
   m_IsPrefabParent: 0
