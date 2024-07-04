@@ -33,7 +33,6 @@ public class Template : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(newNames.Count);
     }
 
     void Update()
