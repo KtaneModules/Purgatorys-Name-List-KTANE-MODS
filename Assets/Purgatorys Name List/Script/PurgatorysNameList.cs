@@ -18,6 +18,7 @@ public class PurgatorysNameList : MonoBehaviour
     private bool ModuleSolved;
 
     bool isInitialization;
+    bool isAnimating;
 
     void Awake()
     {
@@ -71,8 +72,8 @@ public class PurgatorysNameList : MonoBehaviour
 
     private void ButtonPress(KMSelectable selectable)
     {
+        if (ModuleSolved || isAnimating) return;
         selectable.AddInteractionPunch(1f);
-        if (ModuleSolved) return;
         Button slectedButton = buttons.First(b => b.Selectable == selectable);
         string selectedName = slectedButton.Text.text;
         Logging($"You chose {selectedName}");
@@ -101,6 +102,7 @@ public class PurgatorysNameList : MonoBehaviour
 
     private IEnumerator FiguresAnimation(bool show, float time, bool solve = false)
     {
+        isAnimating = true;
         foreach (Button button in buttons)
         {
             if (solve && button.Text.text == correctName)
@@ -110,6 +112,7 @@ public class PurgatorysNameList : MonoBehaviour
             button.Selectable.gameObject.SetActive(show);
             yield return new WaitForSeconds(time);
         }
+        isAnimating = false;
     }
 
 
