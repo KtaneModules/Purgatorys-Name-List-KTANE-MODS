@@ -10,16 +10,19 @@ using UnityEngine.UI;
 
 public class PurgatorysNameList : MonoBehaviour
 {
+    private KMBombModule bombModule;
     private Button[] buttons = new Button[8];
     private string correctName;
     static int ModuleIdCounter = 1;
     int ModuleId;
     private bool ModuleSolved;
 
+    bool isInitialization;
+
     void Awake()
     {
         ModuleId = ModuleIdCounter++;
-
+        isInitialization = true;
         for (int i = 1; i < 9; i++)
         {
             int dummy = i;
@@ -28,22 +31,14 @@ public class PurgatorysNameList : MonoBehaviour
             Text text = transform.Find($"StickFigure {dummy}/Canvas/Text").GetComponent<Text>();
             buttons[dummy - 1] = new Button(selectable, text);
         }
+        bombModule = GetComponent<KMBombModule>();
+        bombModule.OnActivate += OnActivate;
     }
 
     void Start()
     {
+        HideAllFigures();
         SetUpMod();
-        string s = "";
-
-        foreach (string name in oldNames)
-        {
-            s += $"\"{name}\", ";
-        }
-
-        using (StreamWriter outputFile = new StreamWriter("WriteLines.txt"))
-        {
-            outputFile.WriteLine(s);
-        }
     }
 
     void Update()
@@ -53,6 +48,7 @@ public class PurgatorysNameList : MonoBehaviour
 
     private void SetUpMod()
     {
+        
         correctName = newNames.PickRandom();
         string[] wrongNames = RandomizeList(oldNames, 7).ToArray();
         List< string> names = new List<string> { correctName };
@@ -66,23 +62,56 @@ public class PurgatorysNameList : MonoBehaviour
 
         Logging($"Names are {string.Join(", ", names.ToArray())}");
         Logging($"Correct person is: {correctName}");
+
+        if (!isInitialization)
+        {
+            StartCoroutine(FiguresAnimation(true, .3f));
+        }
     }
 
     private void ButtonPress(KMSelectable selectable)
     {
+        selectable.AddInteractionPunch(1f);
         if (ModuleSolved) return;
         Button slectedButton = buttons.First(b => b.Selectable == selectable);
         string selectedName = slectedButton.Text.text;
         Logging($"You chose {selectedName}");
         if (selectedName == correctName) 
         {
-            Solve();
+            StartCoroutine(Solve());
+
         }
         else
         {
-            Strike();
+            StartCoroutine(Strike());
         }
     }
+
+    private void OnActivate()
+    {
+        StartCoroutine(FiguresAnimation(true, .3f));
+        isInitialization = false;
+    }
+    private void HideAllFigures()
+    {
+        foreach (Button button in buttons) {
+            button.Selectable.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator FiguresAnimation(bool show, float time, bool solve = false)
+    {
+        foreach (Button button in buttons)
+        {
+            if (solve && button.Text.text == correctName)
+            {
+                continue;
+            }
+            button.Selectable.gameObject.SetActive(show);
+            yield return new WaitForSeconds(time);
+        }
+    }
+
 
     private List<string> RandomizeList(List<string> orgininal, int count)
     {
@@ -97,16 +126,20 @@ public class PurgatorysNameList : MonoBehaviour
         return newList;
     }
 
-    void Solve()
+    private IEnumerator Solve()
     {
+        yield return FiguresAnimation(false, .1f, true);
+
         GetComponent<KMBombModule>().HandlePass();
         ModuleSolved = true;
     }
 
-    private void Strike()
+    private IEnumerator Strike()
     {
         GetComponent<KMBombModule>().HandleStrike();
+        yield return FiguresAnimation(false, .1f);
         Logging($"Strike! Resetting module...");
+        yield return new WaitForSeconds(.5f);
         SetUpMod();
     }
 
