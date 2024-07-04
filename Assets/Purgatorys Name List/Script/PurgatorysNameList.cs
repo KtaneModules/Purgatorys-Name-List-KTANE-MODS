@@ -9,6 +9,7 @@ using Rnd = UnityEngine.Random;
 using System.IO;
 using UnityEngine.UI;
 using NUnit.Framework;
+using UnityEditor.VersionControl;
 
 public class PurgatorysNameList : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PurgatorysNameList : MonoBehaviour
     private KMBombInfo Bomb;
     private KMAudio Audio;
     private Button[] buttons = new Button[8];
+    private string correctName;
 
     static int ModuleIdCounter = 1;
     int ModuleId;
@@ -32,14 +34,23 @@ public class PurgatorysNameList : MonoBehaviour
             selectable.OnInteract += delegate () { ButtonPress(selectable); return false; };
             Text text = transform.Find($"StickFigure {dummy}/Canvas/Text").GetComponent<Text>();
             buttons[dummy - 1] = new Button(selectable, text);
-            buttons[dummy - 1].Text.text = "Alejandrina";
-
         }
     }
 
     void Start()
     {
+        SetUpMod();
+        string s = "";
 
+        foreach (string name in oldNames)
+        {
+            s += $"\"{name}\", ";
+        }
+
+        using (StreamWriter outputFile = new StreamWriter("WriteLines.txt"))
+        {
+            outputFile.WriteLine(s);
+        }
     }
 
     void Update()
@@ -47,9 +58,68 @@ public class PurgatorysNameList : MonoBehaviour
 
     }
 
+    private void SetUpMod()
+    {
+        correctName = newNames.PickRandom();
+        string[] wrongNames = RandomizeList(oldNames, 7).ToArray();
+        List< string> names = new List<string> { correctName };
+        names.AddRange(wrongNames);
+        names = RandomizeList(names, 8);
+
+        for(int i = 0; i < 8; i++)
+        {
+            buttons[i].Text.text = names[i];
+        }
+
+        Logging($"Names are {string.Join(", ", names.ToArray())}");
+        Logging($"Correct person is: {correctName}");
+    }
+
     private void ButtonPress(KMSelectable selectable)
     {
+        if (ModuleSolved) return;
+        Button slectedButton = buttons.First(b => b.Selectable == selectable);
+        string selectedName = slectedButton.Text.text;
+        Logging($"You chose {selectedName}");
+        if (selectedName == correctName) 
+        {
+            Solve();
+        }
+        else
+        {
+            Strike();
+        }
+    }
 
+    private List<string> RandomizeList(List<string> orgininal, int count)
+    {
+        List<string> newList = new List<string>();
+        List<string> oldList = new List<string>(orgininal);
+        while (oldList.Count > 0 && newList.Count != count)
+        {
+            string result = oldList.PickRandom();
+            oldList.Remove(result);
+            newList.Add(result);
+        }
+        return newList;
+    }
+
+    void Solve()
+    {
+        GetComponent<KMBombModule>().HandlePass();
+        ModuleSolved = true;
+    }
+
+    private void Strike()
+    {
+        
+        Logging($"Strike! Resetting module...");
+        SetUpMod();
+    }
+
+    private void Logging(string message)
+    {
+        Debug.Log($"[Purgatory's Name List #{ModuleId}] {message}");
     }
 
 #pragma warning disable 414
