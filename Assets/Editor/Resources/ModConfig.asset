@@ -14,7 +14,8 @@ MonoBehaviour:
   id: PurgatorysNameList
   title: Purgatory's Name List
   author: 
-  description: 
+  description: Select the name on the module that is not part of Purgatory's extremely
+    long name list.
   version: 
   outputFolder: build
-  previewImage: {fileID: 0}
+  previewImage: {fileID: 2800000, guid: cb29e4b286e5a13419e4479622e8f6a1, type: 3}
