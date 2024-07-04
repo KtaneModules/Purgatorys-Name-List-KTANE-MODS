@@ -2,23 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using KModkit;
 using Rnd = UnityEngine.Random;
 using System.IO;
 using UnityEngine.UI;
-using NUnit.Framework;
-using UnityEditor.VersionControl;
 
 public class PurgatorysNameList : MonoBehaviour
 {
-
-    private KMBombInfo Bomb;
-    private KMAudio Audio;
     private Button[] buttons = new Button[8];
     private string correctName;
-
     static int ModuleIdCounter = 1;
     int ModuleId;
     private bool ModuleSolved;

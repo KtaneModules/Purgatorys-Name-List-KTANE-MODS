@@ -205,6 +205,16 @@ Prefab:
       propertyPath: m_Range
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 114916341710067522, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
+        type: 2}
+      propertyPath: ModuleType
+      value: PurgatorysNameList
+      objectReference: {fileID: 0}
+    - target: {fileID: 114916341710067522, guid: 75f24afa0977b094d8f51c5e2e4db5b3,
+        type: 2}
+      propertyPath: ModuleDisplayName
+      value: Purgatory's Name List
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 75f24afa0977b094d8f51c5e2e4db5b3, type: 2}
   m_IsPrefabParent: 0

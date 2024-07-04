@@ -1,0 +1,10 @@
+{
+  "name": "PurgatorysNameList-Editor",
+  "references": [
+    "PurgatorysNameList"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": []
+}
