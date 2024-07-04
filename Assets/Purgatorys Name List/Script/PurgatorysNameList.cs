@@ -123,19 +123,31 @@ public class PurgatorysNameList : MonoBehaviour
     }
 
 #pragma warning disable 414
-    private readonly string TwitchHelpMessage = @"Use !{0} to do something.";
+    private readonly string TwitchHelpMessage = @"Use !{0} followed by the a name to selected that person";
 #pragma warning restore 414
 
     IEnumerator ProcessTwitchCommand(string Command)
     {
-        yield
-        return null;
+        yield return null;
+        Command = Command.ToUpper().Trim();
+        string[] names = buttons.Select(b => b.Text.text.ToUpper()).ToArray();
+        if (names.Contains(Command))
+        {
+            buttons.First(b => b.Text.text.ToUpper() == Command).Selectable.OnInteract();
+        }
+        else
+        {
+            yield return $"sendtochaterror \"{Command}\" is not a person on the mod";
+        }
     }
 
     IEnumerator TwitchHandleForcedSolve()
     {
-        yield
-        return null;
+        yield return ProcessTwitchCommand(correctName);
+        while (!ModuleSolved)
+        {
+            yield return true;
+        }
     }
 
     List<string> oldNames = new List<string> {
